@@ -14,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,9 +73,15 @@ public class AuthController {
 		return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwtToken));
 	}
 	
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 	@DeleteMapping("/delete")
 	public String delete() {
 		return "delete";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_USER')")
+	@GetMapping("/getAll")
+	public String getAll() {
+		return "get all success";
 	}
 }
