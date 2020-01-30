@@ -73,6 +73,9 @@ public class AuthController {
 		return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwtToken));
 	}
 	
+	/*
+	 * available only for both admin and user
+	 */
 	@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 	@DeleteMapping("/delete")
 	public String delete() {
